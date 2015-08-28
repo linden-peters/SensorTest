@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     //private Sensor senPos;
     private SensorManager sm;
     private List<Sensor> sl;
+    private char[] axis = new char[3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,28 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public final void onSensorChanged(SensorEvent event) {
-        mySensor.setText(Calendar.getInstance().getTime() + "\n\t" + event.values[0] + "\n\t" + event.values[1] + "\n\t" + event.values[2]);
+        if (event.values[0] > 2)
+            axis[0] = '<';
+        else if(event.values[0] < -2)
+            axis[0] = '>';
+        else
+            axis[0] = ' ';
+        if (event.values[1] > 2)
+            axis[1] = 'V';
+        else if(event.values[1] < -2)
+            axis[1] = 'A';
+        else
+            axis[1] = ' ';
+        if (event.values[2] > 2)
+            axis[2] = '.';
+        else if(event.values[2] < -2)
+            axis[2] = 'O';
+        else
+            axis[2] = ' ';
+        mySensor.setText(Calendar.getInstance().getTime()
+                + "\n\t" + axis[0] + "\t" + event.values[0]
+                + "\n\t" + axis[1] + "\t" + event.values[1]
+                + "\n\t" + axis[2] + "\t" + event.values[2]);
     }
 
     @Override
