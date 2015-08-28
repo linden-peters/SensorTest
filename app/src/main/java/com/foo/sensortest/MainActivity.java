@@ -7,7 +7,6 @@ import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
-
 import java.util.Calendar;
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     //private Sensor senPos;
     private SensorManager sm;
     private List<Sensor> sl;
-    private char[] axis = new char[3];
+    //private char[] axis = new char[3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public final void onSensorChanged(SensorEvent event) {
+        /*
         if (event.values[0] > 2)
             axis[0] = '<';
         else if(event.values[0] < -2)
@@ -72,6 +72,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 + "\n\t" + axis[0] + "\t" + event.values[0]
                 + "\n\t" + axis[1] + "\t" + event.values[1]
                 + "\n\t" + axis[2] + "\t" + event.values[2]);
+        */
+        mySensor.setText(Calendar.getInstance().getTime()
+                + "\n\t|\t\t" + (event.values[1] < -2 ? "A" : ".") + "\t\t|\t" + event.values[0]
+                + "\n\t|\t" + (event.values[0] > 2 ? "<" : ".") + "\t"
+                + (event.values[2] > 2 ? "X" : (event.values[2] < -2 ? "O" : ".") )
+                    + "\t" + (event.values[0] < -2 ? ">" : ".") + "\t|\t" + event.values[1]
+                + "\n\t|\t\t" + (event.values[1] > 2 ? "V" : ".") + "\t\t|\t" + event.values[2]);
     }
 
     @Override
